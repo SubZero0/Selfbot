@@ -135,7 +135,8 @@ namespace Maya.Modules.Commands
         {
             var msgs = await Context.Channel.GetMessagesAsync(messages).Flatten();
             msgs = msgs.Where(x => x.Author.Id == Context.Client.CurrentUser.Id);
-            await Context.Channel.DeleteMessagesAsync(msgs);
+            foreach (IMessage msg in msgs)
+                await msg.DeleteAsync();
         }
 
         [Command("変化の術")]
